@@ -147,7 +147,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\App.cpp" />
+    <ClCompile Include="Src\Core\AppWindow.cpp" />
     <ClCompile Include="Src\Core\Entry.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Core\App.h" />
+    <ClInclude Include="Src\Core\AppWindow.h" />
+    <ClInclude Include="Src\Core\Assert.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
