@@ -12,10 +12,10 @@ App::~App()
 
 bool App::Init()
 {
-	return CreateWindow();
+	ASSERT_CORE_FATAL(CreateWindow(), "create window failed");
 	//Res loader Init
-	//Sub system int 
-	//GameLogic Init
+	//Sub system int
+	 return true;
 }
 
 bool App::CreateWindow()
@@ -35,7 +35,6 @@ void App::Run()
 		//PHY
 		//STATE
 		//GRAPH
-		RenderUpdate();
 		//AllProcees->update();
 		//UpdateScengraph
 		//Scene= 1

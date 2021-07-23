@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -150,11 +150,18 @@
     <ClCompile Include="Src\Core\App.cpp" />
     <ClCompile Include="Src\Core\AppWindow.cpp" />
     <ClCompile Include="Src\Core\Entry.cpp" />
+    <ClCompile Include="Src\Core\GameLogic.cpp" />
+    <ClCompile Include="Src\Render\Renderer.cpp" />
+    <ClCompile Include="Src\Resource\ResourceLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\App.h" />
     <ClInclude Include="Src\Core\AppWindow.h" />
     <ClInclude Include="Src\Core\Assert.h" />
+    <ClInclude Include="Src\Core\Defination.h" />
+    <ClInclude Include="Src\Core\GameLogic.h" />
+    <ClInclude Include="Src\Render\Renderer.h" />
+    <ClInclude Include="Src\Resource\ResourceLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

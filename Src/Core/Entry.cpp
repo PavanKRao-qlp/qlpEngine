@@ -2,6 +2,8 @@
 #include "App.h"
 #include "Assert.h"
 
+#define ASSIMP
+
 int main() {
 
 	App app;
