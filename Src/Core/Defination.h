@@ -1,2 +1,3 @@
 #pragma once
-#define ASSIMP true;
+#define ASSIMP
+#define OPENGL

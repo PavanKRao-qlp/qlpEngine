@@ -81,7 +81,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\admin\source\repos\qlpEngine\Include;$(SolutionDir)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libs;$(LibraryPath)</LibraryPath>
     <IntDir>Build\staging\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -126,7 +126,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\admin\source\repos\qlpEngine\Libs;$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -151,7 +151,11 @@
     <ClCompile Include="Src\Core\AppWindow.cpp" />
     <ClCompile Include="Src\Core\Entry.cpp" />
     <ClCompile Include="Src\Core\GameLogic.cpp" />
+    <ClCompile Include="Src\Render\Camera.cpp" />
+    <ClCompile Include="Src\Render\Mesh.cpp" />
     <ClCompile Include="Src\Render\Renderer.cpp" />
+    <ClCompile Include="Src\Render\SceneGraph.cpp" />
+    <ClCompile Include="Src\Render\SceneNode.cpp" />
     <ClCompile Include="Src\Resource\ResourceLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,7 +164,12 @@
     <ClInclude Include="Src\Core\Assert.h" />
     <ClInclude Include="Src\Core\Defination.h" />
     <ClInclude Include="Src\Core\GameLogic.h" />
+    <ClInclude Include="Src\Core\Graphics.h" />
+    <ClInclude Include="Src\Render\Camera.h" />
+    <ClInclude Include="Src\Render\Mesh.h" />
     <ClInclude Include="Src\Render\Renderer.h" />
+    <ClInclude Include="Src\Render\SceneGraph.h" />
+    <ClInclude Include="Src\Render\SceneNode.h" />
     <ClInclude Include="Src\Resource\ResourceLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

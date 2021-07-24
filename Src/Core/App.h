@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "Graphics.h"
 #include "AppWindow.h"
 #include "../Render/Renderer.h"
 using namespace std;

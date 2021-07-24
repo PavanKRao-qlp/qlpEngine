@@ -1,6 +1,4 @@
 #include "App.h"
-#include <GLEW/glew.h> //needs to be first gl 
-#include <GLFW/glfw3.h>
 
 App::App()
 {

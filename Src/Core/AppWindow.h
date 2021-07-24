@@ -1,6 +1,5 @@
 #pragma once
-#include <GLEW\glew.h>
-#include <GLFW\glfw3.h>
+#include "Graphics.h"
 #include "Assert.h"
 
 using namespace std;
