@@ -87,6 +87,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Build\staging\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>C:\Users\admin\source\repos\qlpEngine\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -122,12 +126,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\admin\source\repos\qlpEngine\Libs;$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,33 +149,77 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\admin\source\repos\qlpEngine\Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DummyCube.cpp" />
+    <ClCompile Include="RenderCommand.cpp" />
     <ClCompile Include="Src\Core\App.cpp" />
     <ClCompile Include="Src\Core\AppWindow.cpp" />
     <ClCompile Include="Src\Core\Entry.cpp" />
     <ClCompile Include="Src\Core\GameLogic.cpp" />
+    <ClCompile Include="Src\Core\IComponent.cpp" />
+    <ClCompile Include="Src\Core\Input.cpp" />
+    <ClCompile Include="Src\Core\KeyboardInput.cpp" />
+    <ClCompile Include="Src\Hud.cpp" />
+    <ClCompile Include="Src\Imgui\imgui.cpp" />
+    <ClCompile Include="Src\Imgui\imgui_demo.cpp" />
+    <ClCompile Include="Src\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="Src\Imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Src\Imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Src\Imgui\imgui_tables.cpp" />
+    <ClCompile Include="Src\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Src\Render\Camera.cpp" />
+    <ClCompile Include="Src\Render\Light.cpp" />
+    <ClCompile Include="Src\Render\Material.cpp" />
     <ClCompile Include="Src\Render\Mesh.cpp" />
     <ClCompile Include="Src\Render\Renderer.cpp" />
     <ClCompile Include="Src\Render\SceneGraph.cpp" />
     <ClCompile Include="Src\Render\SceneNode.cpp" />
+    <ClCompile Include="Src\Render\Shader.cpp" />
+    <ClCompile Include="Src\Render\Texture.cpp" />
+    <ClCompile Include="Src\Render\Transform.cpp" />
     <ClCompile Include="Src\Resource\ResourceLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DummyCube.h" />
+    <ClInclude Include="RenderCommand.h" />
     <ClInclude Include="Src\Core\App.h" />
     <ClInclude Include="Src\Core\AppWindow.h" />
     <ClInclude Include="Src\Core\Assert.h" />
     <ClInclude Include="Src\Core\Defination.h" />
     <ClInclude Include="Src\Core\GameLogic.h" />
     <ClInclude Include="Src\Core\Graphics.h" />
+    <ClInclude Include="Src\Core\IComponent.h" />
+    <ClInclude Include="Src\Core\Input.h" />
+    <ClInclude Include="Src\Core\KeyboardInput.h" />
+    <ClInclude Include="Src\Hud.h" />
+    <ClInclude Include="Src\Imgui\imconfig.h" />
+    <ClInclude Include="Src\Imgui\imgui.h" />
+    <ClInclude Include="Src\Imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="Src\Imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="Src\Imgui\imgui_internal.h" />
+    <ClInclude Include="Src\Imgui\imstb_rectpack.h" />
+    <ClInclude Include="Src\Imgui\imstb_textedit.h" />
+    <ClInclude Include="Src\Imgui\imstb_truetype.h" />
     <ClInclude Include="Src\Render\Camera.h" />
+    <ClInclude Include="Src\Render\Light.h" />
+    <ClInclude Include="Src\Render\Material.h" />
     <ClInclude Include="Src\Render\Mesh.h" />
     <ClInclude Include="Src\Render\Renderer.h" />
     <ClInclude Include="Src\Render\SceneGraph.h" />
     <ClInclude Include="Src\Render\SceneNode.h" />
+    <ClInclude Include="Src\Render\Shader.h" />
+    <ClInclude Include="Src\Render\Texture.h" />
+    <ClInclude Include="Src\Render\Transform.h" />
     <ClInclude Include="Src\Resource\ResourceLoader.h" />
+    <ClInclude Include="Src\Resource\stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shader\Lambert.frag" />
+    <None Include="Assets\Shader\Lambert.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

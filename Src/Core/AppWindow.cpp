@@ -20,6 +20,7 @@ bool AppWindow::Init()
 		return false;
 	}
 	glfwMakeContextCurrent(mGlfwWindow);
+	ASSERT_CORE_FATAL(glewInit() == GLEW_OK, "GLEW OPENGL INIT FAILED"); // todo: move to grphics api ?
 	return true;
 }
 

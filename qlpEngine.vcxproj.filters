@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Render">
       <UniqueIdentifier>{df04ef25-e182-4cce-b0da-7b5d6756e0b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Imgui">
+      <UniqueIdentifier>{2938fd85-d65f-478e-aedd-ebb18abe028a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Core\App.cpp">
@@ -51,6 +54,60 @@
     <ClCompile Include="Src\Render\SceneNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Render\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\KeyboardInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Texture.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="DummyCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Hud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Imgui\imgui.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Imgui\imgui_demo.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Imgui\imgui_draw.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Imgui\imgui_impl_glfw.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Imgui\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Imgui\imgui_tables.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Imgui\imgui_widgets.cpp">
+      <Filter>Source Files\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\IComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Render\Light.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\App.h">
@@ -74,20 +131,88 @@
     <ClInclude Include="Src\Resource\ResourceLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Render\Camera.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\Mesh.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\SceneGraph.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Render\SceneNode.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Core\Graphics.h">
       <Filter>Source Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Render\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\SceneGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\SceneNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Shader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\KeyboardInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Material.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Texture.h">
+      <Filter>Source Files\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Resource\stb_image.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DummyCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Transform.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Hud.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Imgui\imconfig.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Imgui\imgui.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Imgui\imgui_impl_glfw.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Imgui\imgui_impl_opengl3.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Imgui\imgui_internal.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Imgui\imstb_rectpack.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Imgui\imstb_textedit.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Imgui\imstb_truetype.h">
+      <Filter>Source Files\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\IComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Render\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shader\Lambert.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shader\Lambert.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

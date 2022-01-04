@@ -13,6 +13,7 @@ public:
 	void RepaintWindow();
 	void ClearWindow();
 	unsigned int windowH, windowW;
+	inline void* WindowPtr() { return mGlfwWindow; }
 private:
 	GLFWwindow* mGlfwWindow;
 };
