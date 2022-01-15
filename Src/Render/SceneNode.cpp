@@ -8,6 +8,14 @@ SceneNode::~SceneNode()
 {
 }
 
+SceneNode::SceneNode(const SceneNode& refNode)
+{
+	this->Name = refNode.Name + "_Copy";
+	this->Parent = refNode.Parent;
+	this->LocalTranform = refNode.LocalTranform;
+	this->Visible = refNode.Visible;
+}
+
 bool SceneNode::IsVisible()
 {
 	return Visible;

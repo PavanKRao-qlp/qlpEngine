@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "Mesh.h"
+#include "Light.h"
 #include "Camera.h"
 class SceneGraph
 {

@@ -9,6 +9,7 @@ class  SceneNode
 public:
 	 SceneNode();
 	~ SceneNode();
+	SceneNode(const SceneNode& refNode);
 	bool IsVisible();
 	int GetPass();
 	std::vector<SceneNode*> GetChildren();

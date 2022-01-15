@@ -62,7 +62,7 @@ public:
 
 	void setMat4(unsigned int id, const glm::mat4& mat) const;
 
-
+	void BindUniformBufferObject(const std::string& name, unsigned int bindIndex) const;
 
 private:
 	void checkCompileErrors(unsigned int shader, std::string type);

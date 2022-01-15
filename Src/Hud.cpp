@@ -16,6 +16,7 @@ void Hud::UpdateUI()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+#pragma region Hierarchy
     ImGui::SetNextWindowBgAlpha(0.35f);
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove;
@@ -25,12 +26,18 @@ void Hud::UpdateUI()
     ImGui::Separator();
     ImGui::Text("Camera");
     ImGui::InputFloat3("Position", &sg_->MainCamera.Position[0], "%.3f", 0);
+    ImGui::InputFloat3("Rotation", &sg_->MainCamera.Forward[0], "%.3f", 0);
     ImGui::Separator();
     ImGui::Text("Hierarchy");
     for (auto node : sg_->RootObjects) {
         DrawHierarchyNode(node);
     }
     ImGui::End();
+
+#pragma endregion
+#pragma region Inspector
+
+
     if (selectedNode != nullptr) {
         ImGui::SetNextWindowBgAlpha(0.35f);
         ImGui::SetNextWindowPos(ImVec2(1024, 0), 0, ImVec2(1, 0));
@@ -38,6 +45,28 @@ void Hud::UpdateUI()
         DrawnNodeInfo(selectedNode);
         ImGui::End();
     }
+   
+#pragma endregion
+#pragma region  FrameBuffers
+    ImGui::SetNextWindowBgAlpha(0.35f); 
+    ImGui::SetNextWindowPos(ImVec2(0, 720), 0, ImVec2(0,1));
+     window_flags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize;
+    ImGui::Begin("FrameBuffers",0,window_flags);
+        auto frameBuffer = rd_->frameBuffer_clr.get();
+        if (frameBuffer) {
+            for (int i = 0; i < frameBuffer->texSize; i++)
+            {
+                ImGui::SameLine();
+                ImGui::Image((void*)(intptr_t)frameBuffer->GetColorAttachment(i), ImVec2(102.4, 72), ImVec2(0, 1), ImVec2(1, 0), ImVec4(1, 1, 1, 1), ImVec4(0.8, 0.8, 0.8, 1));
+                if (ImGui::IsItemHovered()) {
+                    ImGui::BeginTooltip();
+                    ImGui::Image((void*)(intptr_t)frameBuffer->GetColorAttachment(i), ImVec2(102.4*5, 72*5), ImVec2(0, 1), ImVec2(1, 0), ImVec4(1, 1, 1, 1), ImVec4(0.8, 0.8, 0.8, 1));
+                    ImGui::EndTooltip();
+                }
+            }
+        }
+    ImGui::End();
+#pragma endregion
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -45,6 +74,10 @@ void Hud::UpdateUI()
 void Hud::SetSceneGrapgh(SceneGraph* SG)
 {
 	this->sg_ = SG;
+}
+void Hud::SetRenderer(Renderer* RG)
+{
+    this->rd_ = RG;
 }
 
 void Hud::DrawHierarchyNode(SceneNode* node)
@@ -70,6 +103,11 @@ void Hud::DrawnNodeInfo(SceneNode* node) {
     ImGui::Checkbox("", &node->Visible);
     ImGui::SameLine();
     ImGui::Text("%s", node->Name.c_str());
+    ImGui::SameLine(100);
+    if (ImGui::Button("+")) {
+        ImGui::OpenPopup("Add_Component");
+       
+    }
     ImGui::Separator();
     if (ImGui::CollapsingHeader("Tranform", ImGuiTreeNodeFlags_OpenOnArrow|ImGuiTreeNodeFlags_DefaultOpen ))
     {
@@ -82,7 +120,24 @@ void Hud::DrawnNodeInfo(SceneNode* node) {
         DrawComponent(component);
         ImGui::Separator();
     }
-    // if()
+
+
+    if (ImGui::BeginPopup("Add_Component"))
+    {
+        if (ImGui::MenuItem("Duplicate")) {
+            SceneNode* copyNode = new SceneNode();
+            copyNode->Name = node->Name + "_copy";
+            copyNode->LocalTranform = node->LocalTranform;
+            sg_->AddNode(copyNode);
+        }
+        if (ImGui::MenuItem("Add Light Component")) {
+            Light* light = new Light();
+            light->Color = glm::vec3(1);
+            node->AddComponent(light);
+        }
+        ImGui::EndPopup();
+
+    }
 }
 
 void Hud::DrawComponent(IComponent* component)

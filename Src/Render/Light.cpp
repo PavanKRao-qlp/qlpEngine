@@ -22,3 +22,13 @@ SceneNode* Light::GetSceneNode()
 {
 	return sceneNode;
 }
+
+Light::PointLightRendParams Light::GetRendParams()
+{
+	Light::PointLightRendParams params;
+	params.color = glm::vec4(Color, 1);
+	params.position = sceneNode->GetWorldTranform()[3]; 
+	params.range = glm::vec4(Color, 1);
+	//params.range = 10;
+	return params;
+}

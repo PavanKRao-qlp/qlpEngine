@@ -108,6 +108,9 @@
     <ClCompile Include="Src\Render\Light.cpp">
       <Filter>Source Files\Render</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Render\Framebuffer.cpp">
+      <Filter>Source Files\Render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\App.h">
@@ -206,12 +209,27 @@
     <ClInclude Include="Src\Render\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Render\Framebuffer.h">
+      <Filter>Source Files\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\Lambert.frag">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Assets\Shader\Lambert.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shader\LambertDeffered.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shader\LambertDeffered.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shader\RenderView.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shader\RenderView.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

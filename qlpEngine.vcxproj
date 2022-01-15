@@ -172,6 +172,7 @@
     <ClCompile Include="Src\Imgui\imgui_tables.cpp" />
     <ClCompile Include="Src\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Src\Render\Camera.cpp" />
+    <ClCompile Include="Src\Render\Framebuffer.cpp" />
     <ClCompile Include="Src\Render\Light.cpp" />
     <ClCompile Include="Src\Render\Material.cpp" />
     <ClCompile Include="Src\Render\Mesh.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Src\Imgui\imstb_textedit.h" />
     <ClInclude Include="Src\Imgui\imstb_truetype.h" />
     <ClInclude Include="Src\Render\Camera.h" />
+    <ClInclude Include="Src\Render\Framebuffer.h" />
     <ClInclude Include="Src\Render\Light.h" />
     <ClInclude Include="Src\Render\Material.h" />
     <ClInclude Include="Src\Render\Mesh.h" />
@@ -220,6 +222,10 @@
   <ItemGroup>
     <None Include="Assets\Shader\Lambert.frag" />
     <None Include="Assets\Shader\Lambert.vert" />
+    <None Include="Assets\Shader\LambertDeffered.frag" />
+    <None Include="Assets\Shader\LambertDeffered.vert" />
+    <None Include="Assets\Shader\RenderView.frag" />
+    <None Include="Assets\Shader\RenderView.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

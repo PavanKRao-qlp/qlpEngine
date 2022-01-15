@@ -9,11 +9,12 @@ DummyCube::DummyCube()
 
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
@@ -43,12 +44,29 @@ DummyCube::DummyCube()
 
 void DummyCube::SubmitRender()
 {
-    Mat->Shader->setInt("u_diffuse", 1);
+    Mat->Shader->setInt("u_diffuse", 0);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture1);
-
+    Mat->Shader->setMat4("u_M",node->GetWorldTranform());
+    //if (Mat.DiffuseTex) 	Mat.Shader->setInt("u_diffuse", 0);
+    //Mat.Shader->setVec3("u_ambientClr", Mat.AmbientColor);
     glBindVertexArray(VAO);
     //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
+}
+
+const char* DummyCube::GetComponentName()
+{
+    return "fakeCube";
+}
+
+void DummyCube::SetSceneNode(SceneNode* node)
+{
+    this->node = node;
+}
+
+SceneNode* DummyCube::GetSceneNode()
+{
+    return node;
 }

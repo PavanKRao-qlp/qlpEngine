@@ -176,7 +176,9 @@ private:
 	InputKeyState KeyState[255];
 	MousePos MousePos_;
 	GLFWwindow* window;
+	int focus;
 	static void KeyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
+	static void FocusCallback(GLFWwindow* window, int focus);
 };
 

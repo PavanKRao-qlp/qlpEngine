@@ -19,7 +19,8 @@ bool App::Init()
 	//Sub system int
 	mGameLogic.get()->inputWeak =  (mInput.get());
 	mHud.get()->SetSceneGrapgh(mGameLogic.get()->CurrScene.get());
-	 return true;
+	mHud.get()->SetRenderer(mRenderer.get());
+	return true;
 }
 
 bool App::CreateWindow()

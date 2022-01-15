@@ -32,7 +32,7 @@ SceneNode* ResourceLoader::Load3DFile(std::string path)
 
 	//make it async V imp
 	Assimp::Importer importer3d;
-	const aiScene* scene3D = importer3d.ReadFile(path,aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_CalcTangentSpace |   aiProcess_GenUVCoords);
+	const aiScene* scene3D = importer3d.ReadFile(path,aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_CalcTangentSpace |   aiProcess_GenUVCoords | aiProcess_GenSmoothNormals);
 	if (scene3D) {
 		auto* node = scene3D->mRootNode;
 		path = path.substr(0,path.find_last_of('/')+1);

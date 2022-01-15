@@ -15,11 +15,10 @@ public:
         glm::vec3 V;
         glm::vec2 TexCord;
         glm::vec3 Normal;
-
         Vertex(glm::vec3 V_, glm::vec2 Tex , glm::vec3 Norm) {
             this->V = V_;
-            this->TexCord = Tex;
             this->Normal = Norm;
+            this->TexCord = Tex;
         }
     };
 

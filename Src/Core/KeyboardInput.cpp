@@ -11,6 +11,7 @@ KeyboardInput::KeyboardInput(void* windowContext) : KeyState{}
 	window =  static_cast<GLFWwindow*>(windowContext);
 	glfwSetKeyCallback(window, KeyboardCallback);
     glfwSetCursorPosCallback(window, MouseCallback);
+	glfwSetWindowFocusCallback(window, FocusCallback);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
@@ -31,7 +32,7 @@ bool KeyboardInput::IsKeyUp(int keycode)
 }
 
 bool KeyboardInput::IsKeyPressed(int keycode) {
-	if (window) {
+	if (window ) {
 		//if (KeyState && KeyState[keycode] == InputKeyState::KEY_PRESS) return true;
 		try
 		{
@@ -58,20 +59,25 @@ MousePos KeyboardInput::GetMousePos()
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
-void KeyboardInput::KeyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (action == GLFW_RELEASE) {
-		instance->KeyState[key] = InputKeyState::KEY_UP;
-	}
-	else if (action == GLFW_PRESS)
-	{
-		instance->KeyState[key] = InputKeyState::KEY_PRESS;
-	}
-	else if (action == GLFW_REPEAT)
-	{
-		instance->KeyState[key] = InputKeyState::KEY_HOLD;
-	}
-}
+ void KeyboardInput::FocusCallback(GLFWwindow* window, int focus)
+ {
+	 instance->focus = focus;
+ }
+ 
+ void KeyboardInput::KeyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+ {
+	 if (action == GLFW_RELEASE) {
+		 instance->KeyState[key] = InputKeyState::KEY_UP;
+	 }
+	 else if (action == GLFW_PRESS)
+	 {
+		 instance->KeyState[key] = InputKeyState::KEY_PRESS;
+	 }
+	 else if (action == GLFW_REPEAT)
+	 {
+		 instance->KeyState[key] = InputKeyState::KEY_HOLD;
+	 }
+ }
 
 void KeyboardInput::MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {

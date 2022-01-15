@@ -19,6 +19,7 @@ public:
 private:
 	std::unique_ptr<DummyCube> cube;
 	std::unique_ptr<Light> light;
+	std::unique_ptr<Light> light2;
 	Camera* mainCam;
 	Shader* TempColor; //change
 	bool firstMouse = true;
