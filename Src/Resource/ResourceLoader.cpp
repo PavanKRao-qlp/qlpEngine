@@ -154,14 +154,14 @@ bool ResourceLoader::LoadTexureData(std::string path, Texture2D* texture2d)
 	stbi_set_flip_vertically_on_load(true);
 	auto fptr = [&w,&h,&c,path]() { return ImageLoad(path, w, h, c); };
 	//auto sLoad = (*LoadWorker).SumbitTask(fptr);
-	auto data = ImageLoad(path, w, h, c); 
-	if (!data)
+	unsigned char* texData = stbi_load(path.c_str(), &w, &h, &c, 4);
+	if (!texData)
 	{
 		//todo alert tex importFail
 		return false;
 	}
-	texture2d->InitGLTextureData(data, w, h);
-	stbi_image_free(data);
+	texture2d->InitGLTextureData(texData, w, h);
+	stbi_image_free(texData);
 	return true;
 }
 
