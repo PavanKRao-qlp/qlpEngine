@@ -12,6 +12,7 @@ public:
 	void UpdateUI();
 	void SetSceneGrapgh(SceneGraph* SG);
 	void SetRenderer(Renderer* RG);
+	float FPS_;
 private:
 	SceneGraph* sg_;
 	Renderer* rd_;

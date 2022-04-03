@@ -17,6 +17,7 @@ public:
 	std::unique_ptr<SceneGraph> CurrScene;
 	KeyboardInput* inputWeak; // change
 private:
+	void On3DObjectLoaded(SceneNode* node);
 	std::unique_ptr<DummyCube> cube;
 	std::unique_ptr<Light> light;
 	std::unique_ptr<Light> light2;
@@ -25,4 +26,5 @@ private:
 	bool firstMouse = true;
 	float lastX, lastY , yaw , pitch;
 	bool takeMouseInput = true;
+	std::unique_ptr<ResourceLoader> ResLoaderUPtr;
 };

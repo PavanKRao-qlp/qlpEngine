@@ -7,19 +7,17 @@
 
 ResourceLoader::ResourceLoader()
 {
+	LoadWorker = std::make_unique<SimpleThreadPool>(1);
 }
 
 ResourceLoader::~ResourceLoader()
 {
+	(*LoadWorker).KillThreads();
 }
 
 bool ResourceLoader::Init()
 {
 	return true;
-}
-
-void ResourceLoader::Update()
-{
 }
 
 bool ResourceLoader::ParseShaderFile()
@@ -30,7 +28,7 @@ bool ResourceLoader::ParseShaderFile()
 SceneNode* ResourceLoader::Load3DFile(std::string path)
 {
 
-	//make it async V imp
+	//todo make it async V imp
 	Assimp::Importer importer3d;
 	const aiScene* scene3D = importer3d.ReadFile(path,aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_CalcTangentSpace |   aiProcess_GenUVCoords | aiProcess_GenSmoothNormals);
 	if (scene3D) {
@@ -69,13 +67,6 @@ SceneNode* ResourceLoader::Process3DSceneNode(aiNode* node ,aiScene* scene , std
 
 Mesh* ResourceLoader::ProcessMesh(SceneNode* node, aiMesh* mesh3d,  aiScene* scene , std::string path )
 {
-	/*aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-	for (auto p = 0; p < material->mNumProperties; p++) {
-		auto prop = material->mProperties[p];
-		int i = 0;
-	}*/
-	//auto material = ;
-
 	int vNum = mesh3d->mNumVertices;
 	int iNum = mesh3d->mNumFaces * 3;
 
@@ -90,13 +81,11 @@ Mesh* ResourceLoader::ProcessMesh(SceneNode* node, aiMesh* mesh3d,  aiScene* sce
 	}
 	for (auto v = 0; v < vNum; v++)
 	{
-		//mesh_->V->push_back(Mesh::Vertex((*reinterpret_cast<glm::vec3*>(&mesh3d->mVertices[v])), (*reinterpret_cast<glm::vec2*>(&mesh3d->mTextureCoords[0][v])) ));
 		if (mesh3d->HasTextureCoords(0) && mesh3d->HasNormals()) {
 			mesh_->V->push_back(Mesh::Vertex( 
 				(*reinterpret_cast<glm::vec3*>(&mesh3d->mVertices[v])),
 				(*reinterpret_cast<glm::vec2*>(&mesh3d->mTextureCoords[0][v])),
-				(*reinterpret_cast<glm::vec3*>(&mesh3d->mNormals[v]))));	
-			  //	mesh_->TexCord->push_back(*reinterpret_cast<glm::vec2*>(&mesh3d->mTextureCoords[0][v]));
+				(*reinterpret_cast<glm::vec3*>(&mesh3d->mNormals[v]))));
 		}
 		else {
 			mesh_->V->push_back(Mesh::Vertex((*reinterpret_cast<glm::vec3*>(&mesh3d->mVertices[v])), glm::vec2(0,0), (*reinterpret_cast<glm::vec3*>(&mesh3d->mNormals[v]))));
@@ -122,11 +111,13 @@ void ResourceLoader::ProcessMaterial(aiMaterial* aiMat , Mesh* mesh, bool import
 {
 	aiString matName = aiMat->GetName();
 	mesh->Mat.Name = matName.C_Str();
-	aiString matDiffuse;
+	aiString matDiffuse, matNormal;
 	aiMat->Get(AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0), matDiffuse);
 	mesh->Mat.DiffuseTexPath = matDiffuse.C_Str();
+	aiMat->Get(AI_MATKEY_TEXTURE(aiTextureType_NORMALS, 0), matNormal);
+	mesh->Mat.NormalMapPath = matNormal.C_Str();
 	if (importTextures) {
-		//path + mesh->Mat.DiffuseTexPath
+
 		if (TextureMap.count(path + mesh->Mat.DiffuseTexPath) == 0) {
 			mesh->Mat.DiffuseTex = new Texture2D();
 			LoadTexureData(path + mesh->Mat.DiffuseTexPath, mesh->Mat.DiffuseTex);
@@ -136,23 +127,60 @@ void ResourceLoader::ProcessMaterial(aiMaterial* aiMat , Mesh* mesh, bool import
 		{
 			mesh->Mat.DiffuseTex = TextureMap[path + mesh->Mat.DiffuseTexPath];
 		}
+
+		if (TextureMap.count(path + mesh->Mat.NormalMapPath) == 0) {
+			mesh->Mat.NormalMapTex = new Texture2D();
+			LoadTexureData(path + mesh->Mat.NormalMapPath, mesh->Mat.NormalMapTex);
+			TextureMap.emplace(path + mesh->Mat.NormalMapPath, mesh->Mat.NormalMapTex);
+		}
+		else
+		{
+			mesh->Mat.NormalMapTex = TextureMap[path + mesh->Mat.NormalMapPath];
+		}
 	}
 	mesh->Mat.Shader = CurrShader;
 }
 
-bool ResourceLoader::LoadTexureData(std::string path, Texture2D* texture2d)
-{
-	int w, h , c = 0;
+unsigned char* ImageLoad(std::string path, int w, int h, int c) {
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char* texData = stbi_load(path.c_str(), &w, &h, &c, 4);
-		if (!texData)
-		{
-			//todo alert tex importFail
-			return false;
-		}
-		texture2d->InitGLTextureData(texData, w, h);
-		stbi_image_free(texData);
-	return true;
+	return texData;
 }
 
 
+bool ResourceLoader::LoadTexureData(std::string path, Texture2D* texture2d)
+{
+	int w, h, c = 0;
+	stbi_set_flip_vertically_on_load(true);
+	auto fptr = [&w,&h,&c,path]() { return ImageLoad(path, w, h, c); };
+	//auto sLoad = (*LoadWorker).SumbitTask(fptr);
+	auto data = ImageLoad(path, w, h, c); 
+	if (!data)
+	{
+		//todo alert tex importFail
+		return false;
+	}
+	texture2d->InitGLTextureData(data, w, h);
+	stbi_image_free(data);
+	return true;
+}
+
+bool ResourceLoader::Load3DFileAsync(std::string path, std::function<void(SceneNode*)> callback)
+{
+	auto loadFn = [&]()-> SceneNode* {
+		return Load3DFile(path);
+	};
+
+	auto scene3dFuture = (*LoadWorker).SumbitTask(loadFn);
+	auto sceneNode = scene3dFuture.get();
+	if (sceneNode) {
+		callback(sceneNode);
+		return true;
+	}
+	callback(nullptr);
+	return false;
+}
+
+SceneNode* ResourceLoader::Process3DSceneNodeTask(aiNode* node, aiScene* scene, std::string path) {
+	return Process3DSceneNode(node, scene, path);
+}

@@ -21,7 +21,8 @@ void Hud::UpdateUI()
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove;
     ImGuiIO& io = ImGui::GetIO();
-    ImGui::Begin("Model",0,window_flags);
+    ImGui::Begin("Scene",0,window_flags);
+    ImGui::Text("Camera %f", FPS_);
     //ImGui::("Camera Pos : %s", sg_->MainCamera.Position);
     ImGui::Separator();
     ImGui::Text("Camera");
@@ -52,7 +53,7 @@ void Hud::UpdateUI()
     ImGui::SetNextWindowPos(ImVec2(0, 720), 0, ImVec2(0,1));
      window_flags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize;
     ImGui::Begin("FrameBuffers",0,window_flags);
-        auto frameBuffer = rd_->frameBuffer_clr.get();
+        auto frameBuffer = rd_->frameBuffer_Gbuffer.get();
         if (frameBuffer) {
             for (int i = 0; i < frameBuffer->texSize; i++)
             {

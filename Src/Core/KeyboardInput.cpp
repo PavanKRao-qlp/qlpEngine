@@ -36,8 +36,8 @@ bool KeyboardInput::IsKeyPressed(int keycode) {
 		//if (KeyState && KeyState[keycode] == InputKeyState::KEY_PRESS) return true;
 		try
 		{
-
-			return(glfwGetKey(window, keycode) == GLFW_PRESS);
+			if (!IsKeyDown(GLFW_KEY_BACKSPACE)) {				return(glfwGetKey(window, keycode) == GLFW_PRESS);
+			}
 		}
 		catch (const char* e)
 		{

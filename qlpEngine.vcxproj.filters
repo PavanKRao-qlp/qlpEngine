@@ -220,16 +220,16 @@
     <None Include="Assets\Shader\Lambert.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Assets\Shader\LambertDeffered.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shader\LambertDeffered.vert">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="Assets\Shader\RenderView.frag">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Assets\Shader\RenderView.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shader\LambertForward.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shader\LambertForward.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

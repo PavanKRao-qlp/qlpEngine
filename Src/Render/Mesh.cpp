@@ -23,7 +23,6 @@ SceneNode* Mesh::GetSceneNode()
 }
 
 void Mesh::InitializeBuffer() {
-
 	glGenVertexArrays(1, &vao_);
 	glGenBuffers(1, &vbo_);
 	glGenBuffers(1, &ebo_);
@@ -53,12 +52,15 @@ void Mesh::SubmitRender()
 		model = sceneNode->GetWorldTranform();
 		Mat.Shader->setMat4("u_M", model);
 		if (Mat.DiffuseTex) 	Mat.Shader->setInt("u_diffuse", 0);
+		if (Mat.NormalMapTex) 	Mat.Shader->setInt("u_normalMap", 1);
 		Mat.Shader->setMat4("u_M", model);
 		Mat.Shader->setVec3("u_ambientClr", Mat.AmbientColor);
-		glBindTexture(GL_TEXTURE_2D, Mat.DiffuseTex->TexId);
+		glActiveTexture(GL_TEXTURE0);
+		if (Mat.DiffuseTex) glBindTexture(GL_TEXTURE_2D, Mat.DiffuseTex->TexId);
+		glActiveTexture(GL_TEXTURE1);
+		if (Mat.NormalMapTex) glBindTexture(GL_TEXTURE_2D, Mat.NormalMapTex->TexId);
 	}
     glBindVertexArray(vao_);
-	glActiveTexture(GL_TEXTURE0);
     glDrawElements(GL_TRIANGLES,I->size(), GL_UNSIGNED_INT,0);
     glBindVertexArray(0);
 }

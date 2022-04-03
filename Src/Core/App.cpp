@@ -10,6 +10,8 @@ App::~App()
 
 bool App::Init()
 {
+
+	std::cout << "App inited" << endl;
 	ASSERT_CORE_FATAL(CreateWindow(), "create window failed");
 	mInput = make_unique<KeyboardInput>(mWindow->WindowPtr());
 	mRenderer = make_unique<Renderer>();
@@ -31,9 +33,13 @@ bool App::CreateWindow()
 
 void App::Run()
 {
+	timeStampPrev = glfwGetTimerValue();
+	std::cout << "App running" << timeStampPrev << endl;
 	mWindow->ClearWindow();
 	while (!mWindow->ShouldWindowClose())
 	{
+		auto timeDelta = (glfwGetTimerValue() - timeStampPrev ) /10000;
+		timeStampPrev = glfwGetTimerValue();
 		mWindow->ClearWindow();
 		mGameLogic->Update();
 		//Input
@@ -46,6 +52,7 @@ void App::Run()
 		//Scene= 1
 		mRenderer->RenderGrapgh(mGameLogic->CurrScene.get());
 		mRenderer->Update();
+		mHud->FPS_ = timeDelta;
 		mHud->UpdateUI();
 		mWindow->RepaintWindow();
 	};
@@ -54,4 +61,5 @@ void App::Run()
 
 void App::Exit()
 {
+	std::cout << "App Exited" << endl;
 }

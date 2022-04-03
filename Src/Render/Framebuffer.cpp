@@ -2,6 +2,9 @@
 
 Framebuffer::Framebuffer(int width , int height , int noOfColorAttachment = 1, bool depth = true ,  bool stencil = true)
 {
+	Width = width;
+	Height = height;
+
 	glGenFramebuffers(1, &ID);
 	glBindFramebuffer(GL_FRAMEBUFFER, ID);
 	if(noOfColorAttachment > 15){
@@ -51,12 +54,30 @@ Framebuffer::Framebuffer(int width , int height , int noOfColorAttachment = 1, b
 Framebuffer::~Framebuffer()
 {
 	//todo delete textures
+	for (Texture2D* colorAttachment : colorAttachments) {
+		delete colorAttachment;
+	}
+	colorAttachments.clear();
 }
 
 void Framebuffer::ClearBuffer()
 {
 	glClearColor(0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+}
+
+void Framebuffer::BlitToFrameBuffer(Framebuffer& destBuffer, GLbitfield blitMask, GLenum blitFilter)
+{
+	glBindBuffer(GL_READ_FRAMEBUFFER, this->ID);
+	glBindBuffer(GL_DRAW_FRAMEBUFFER, destBuffer.ID);
+	glBlitFramebuffer(0, 0, this->Width, this->Height, 0, 0, destBuffer.Width, destBuffer.Height, blitMask, blitFilter);
+	glBindBuffer(GL_READ_FRAMEBUFFER,0);
+	glBindBuffer(GL_DRAW_FRAMEBUFFER,0);
+}
+
+void Framebuffer::BlitFromFrameBuffer(Framebuffer& sourceBuffer, GLbitfield blitMask, GLenum blitFilter)
+{
+	sourceBuffer.BlitToFrameBuffer(*this, blitMask, blitFilter);
 }
 
 int Framebuffer::GetColorAttachment(int index) {
@@ -68,7 +89,7 @@ void Framebuffer::StartWriting()
 	glBindFramebuffer(GL_FRAMEBUFFER, ID);
 }
 
-void Framebuffer::EndWriting()
+void Framebuffer::StopWriting()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

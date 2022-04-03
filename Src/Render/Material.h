@@ -11,7 +11,9 @@ public:
 	glm::vec3 DiffuseColor;
 	glm::vec3 SpecularColor;
 	const char* DiffuseTexPath;
+	const char* NormalMapPath;
 	Texture2D* DiffuseTex;
+	Texture2D* NormalMapTex;
 	Shader* Shader;
 };
 

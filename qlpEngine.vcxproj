@@ -163,6 +163,7 @@
     <ClCompile Include="Src\Core\IComponent.cpp" />
     <ClCompile Include="Src\Core\Input.cpp" />
     <ClCompile Include="Src\Core\KeyboardInput.cpp" />
+    <ClCompile Include="Src\Core\MultiThreading.cpp" />
     <ClCompile Include="Src\Hud.cpp" />
     <ClCompile Include="Src\Imgui\imgui.cpp" />
     <ClCompile Include="Src\Imgui\imgui_demo.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Src\Core\IComponent.h" />
     <ClInclude Include="Src\Core\Input.h" />
     <ClInclude Include="Src\Core\KeyboardInput.h" />
+    <ClInclude Include="Src\Core\MultiThreading.h" />
     <ClInclude Include="Src\Hud.h" />
     <ClInclude Include="Src\Imgui\imconfig.h" />
     <ClInclude Include="Src\Imgui\imgui.h" />
@@ -222,8 +224,8 @@
   <ItemGroup>
     <None Include="Assets\Shader\Lambert.frag" />
     <None Include="Assets\Shader\Lambert.vert" />
-    <None Include="Assets\Shader\LambertDeffered.frag" />
-    <None Include="Assets\Shader\LambertDeffered.vert" />
+    <None Include="Assets\Shader\LambertForward.frag" />
+    <None Include="Assets\Shader\LambertForward.vert" />
     <None Include="Assets\Shader\RenderView.frag" />
     <None Include="Assets\Shader\RenderView.vert" />
   </ItemGroup>
